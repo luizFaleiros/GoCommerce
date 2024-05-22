@@ -2,7 +2,7 @@ package database_test
 
 import (
 	"github.com/luizFaleiros/GoCommerce/internal/entity"
-	"github.com/luizFaleiros/GoCommerce/pkg/infra/database"
+	"github.com/luizFaleiros/GoCommerce/internal/infra/database"
 	"github.com/stretchr/testify/assert"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
