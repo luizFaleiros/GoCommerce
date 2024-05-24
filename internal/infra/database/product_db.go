@@ -9,14 +9,20 @@ type ProductDB struct {
 	DB *gorm.DB
 }
 
-func (p ProductDB) Update(product *entity.Product) (*entity.Product, error) {
-	//TODO implement me
-	panic("implement me")
+func (p ProductDB) Update(id string, newProduct *entity.Product) (*entity.Product, error) {
+	product, err := p.FindById(id)
+	newProduct.ID = product.ID
+	err = p.DB.Save(newProduct).Error
+	if err != nil {
+		return nil, err
+	}
+	return newProduct, nil
 }
 
-func (p ProductDB) DeleteById(id string) error {
-	//TODO implement me
-	panic("implement me")
+func (p *ProductDB) DeleteById(id string) error {
+	product, err := p.FindById(id)
+	err = p.DB.Delete(product).Error
+	return err
 }
 
 func NewProductDb(db *gorm.DB) *ProductDB {
