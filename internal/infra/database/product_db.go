@@ -9,6 +9,16 @@ type ProductDB struct {
 	DB *gorm.DB
 }
 
+func (p ProductDB) Update(product *entity.Product) (*entity.Product, error) {
+	//TODO implement me
+	panic("implement me")
+}
+
+func (p ProductDB) DeleteById(id string) error {
+	//TODO implement me
+	panic("implement me")
+}
+
 func NewProductDb(db *gorm.DB) *ProductDB {
 	return &ProductDB{DB: db}
 }
@@ -21,14 +31,6 @@ func (p ProductDB) FindById(id string) (*entity.Product, error) {
 	var product *entity.Product
 	err := p.DB.Where("id = ?", id).First(&product).Error
 	return product, err
-}
-
-func (p ProductDB) Update(product entity.Product) error {
-	_, err := p.FindById(product.ID.String())
-	if err != nil {
-		return err
-	}
-	return p.DB.Save(&product).Error
 }
 
 func (p ProductDB) Delete(id string) error {

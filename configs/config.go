@@ -20,23 +20,14 @@ type conf struct {
 	TokenAuth     *jwtauth.JWTAuth
 }
 
-func init() {
+func LoadConfig(path string) (*conf, error) {
 	viper.SetConfigName("app_config")
 	viper.SetConfigType("env")
 	viper.SetConfigFile(".env")
-	viper.AddConfigPath(".")
+	viper.AddConfigPath(path)
 	viper.AutomaticEnv()
 	err := viper.ReadInConfig()
-	if err != nil {
-		panic(err)
-	}
 	err = viper.Unmarshal(&cfg)
-	if err != nil {
-		panic(err)
-	}
 	cfg.TokenAuth = jwtauth.New("HS256", []byte(cfg.JWTSecret), nil)
-}
-
-func GetConfig() *conf {
-	return cfg
+	return cfg, err
 }
