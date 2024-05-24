@@ -18,8 +18,12 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: '1.22'
-      - name: tidy
+
+      - name: mod tidy
         run: go mod tidy
+
+      - name: build
+        run: go build -v ./...
 
       - name: Test
         run: go test -v ./...
