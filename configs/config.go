@@ -2,6 +2,7 @@ package configs
 
 import (
 	"github.com/go-chi/jwtauth/v5"
+	"github.com/lestrrat-go/jwx/v2/jwa"
 	"github.com/spf13/viper"
 )
 
@@ -20,14 +21,21 @@ type conf struct {
 	TokenAuth     *jwtauth.JWTAuth
 }
 
-func LoadConfig(path string) (*conf, error) {
+func init() {
 	viper.SetConfigName("app_config")
 	viper.SetConfigType("env")
 	viper.SetConfigFile(".env")
-	viper.AddConfigPath(path)
+	viper.AddConfigPath(".")
 	viper.AutomaticEnv()
 	err := viper.ReadInConfig()
 	err = viper.Unmarshal(&cfg)
-	cfg.TokenAuth = jwtauth.New("HS256", []byte(cfg.JWTSecret), nil)
-	return cfg, err
+	if err != nil {
+		panic(err)
+	}
+	cfg.TokenAuth = jwtauth.New(jwa.HS256.String(), []byte(cfg.JWTSecret), nil)
+
+}
+
+func LoadConfig() *conf {
+	return cfg
 }
