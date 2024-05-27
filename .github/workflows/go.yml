@@ -22,7 +22,7 @@ jobs:
         run: go install github.com/swaggo/swag/cmd/swag@latest
         
       - name: run swag
-        run: swag init -g /home/runner/work/GoCommerce/GoCommerce/cmd/go-commerce/main.go
+        run: swag init -g /cmd/go-commerce/main.go
         
       - name: mod tidy
         run: go mod tidy
