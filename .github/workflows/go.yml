@@ -19,10 +19,10 @@ jobs:
           go-version: '1.22'
 
       - name: intall swag
-        run: go get -u github.com/swaggo/swag/cmd/swag
+        run: go install github.com/swaggo/swag/cmd/swag@latest
         
       - name: run swag
-        run: $GOPATH/bin/swag init
+        run: swag init
         
       - name: mod tidy
         run: go mod tidy
